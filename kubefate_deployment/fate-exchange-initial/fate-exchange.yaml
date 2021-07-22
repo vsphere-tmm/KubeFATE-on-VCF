@@ -1,0 +1,19 @@
+name: fate-exchange
+namespace: fate-exchange
+chartName: fate-exchange
+chartVersion: v1.6.1
+partyId: 1
+podSecurityPolicy:
+  enabled: true
+modules:
+  - trafficServer
+  - nginx
+
+trafficServer:
+  type: LoadBalancer
+  route_table:
+    sni:
+
+nginx:
+  type: LoadBalancer
+  route_table:

@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fix-mount-path
+  namespace: kube-system
+  annotations:
+    info: "Fix: when work node restarts, '/var/lib/containerd' is not mounted."
+  labels:
+    k8s-app: fix-mount-path
+spec:
+  selector:
+    matchLabels:
+      name: fix-mount-path
+  template:
+    metadata:
+      labels:
+        name: fix-mount-path
+    spec:
+      containers:
+      - name: fix-mount-path
+        image: busybox:1.33
+        imagePullPolicy: IfNotPresent
+        command:
+        - "/bin/sh"
+        - "-c"
+        - |
+          set -eux
+          while :
+          do
+            if grep -q " /var/lib/containerd "  /var/local/fstab-host ;then
+              echo "'/var/local/containerd' already exists in '/etc/fstab' of hostPath."
+            elif  grep -q " /var/lib/containerd "  /var/local/mtab-host ;then
+              record=`grep " /var/lib/containerd "  /var/local/mtab-host`
+              echo $record >> /var/local/fstab-host
+              echo "Add '"${record}"' to '/etc/fstab' of hostPath."
+            else
+              echo "Maybe this host does not need to be repaired"
+            fi
+          sleep 1h
+          done
+        volumeMounts:
+        - name: fstab
+          mountPath: /var/local/fstab-host
+        - name: mtab
+          mountPath: /var/local/mtab-host
+      volumes:
+      - name: fstab
+        hostPath:
+          path: /etc/fstab
+      - name: mtab
+        hostPath:
+          path: /etc/mtab

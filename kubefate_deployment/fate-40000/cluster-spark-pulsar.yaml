@@ -1,0 +1,63 @@
+name: fate-40000
+namespace: fate-40000
+chartName: fate
+chartVersion: v1.6.1
+partyId: 40000
+persistence: true
+podSecurityPolicy:
+  enabled: true
+
+modules:
+  - mysql
+  - python
+  - fateboard
+  - client
+  - spark
+  - hdfs
+  - nginx
+  - pulsar
+
+backend: spark
+
+nginx:
+  type: LoadBalancer
+  exchange:
+    ip: 10.159.229.69
+    httpPort: 9300
+
+pulsar:
+  storageClass: vsan-default-storage-policy
+  size: 1Gi
+  publicLB:
+    enabled: true
+  exchange:
+    ip: 10.159.229.68
+    port: 443
+
+mysql:
+  size: 1Gi
+  storageClass: vsan-default-storage-policy
+
+python:
+  size: 5Gi
+  storageClass: vsan-default-storage-policy
+
+client:
+  size: 1Gi
+  storageClass: vsan-default-storage-policy
+
+hdfs:
+  namenode:
+    storageClass: vsan-default-storage-policy
+    size: 1Gi
+  datanode:
+    size: 2Gi
+    storageClass: vsan-default-storage-policy
+
+spark:
+  worker:
+    replicas: 1
+    resources:
+      limits:
+        cpu: "8"
+        memory: "16Gi"
