@@ -1,0 +1,9 @@
+{
+    "file": "examples/data/test_homo_host.csv",
+    "head": 1,
+    "partition": 4,
+    "backend": 2,
+    "work_mode": 1,
+    "table_name": "test_homo_host_0731",
+    "namespace": "experiment"
+}
