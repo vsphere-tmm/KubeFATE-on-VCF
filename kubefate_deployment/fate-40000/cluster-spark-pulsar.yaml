@@ -35,11 +35,11 @@ pulsar:
     port: 443
 
 mysql:
-  size: 1Gi
+  size: 3Gi
   storageClass: vsan-default-storage-policy
 
 python:
-  size: 5Gi
+  size: 10Gi
   storageClass: vsan-default-storage-policy
 
 client:
@@ -49,9 +49,9 @@ client:
 hdfs:
   namenode:
     storageClass: vsan-default-storage-policy
-    size: 1Gi
+    size: 3Gi
   datanode:
-    size: 2Gi
+    size: 10Gi
     storageClass: vsan-default-storage-policy
 
 spark:
