@@ -248,7 +248,7 @@ trafficServer:
   nodePort: 30001
   route_table:
     sni:
-    - fqdn: 10000.fate.org
+    - fqdn: 10000.example.com
       # this should use external IP of pulsar's proxy
       tunnelRoute: 192.168.100.8:6651
  

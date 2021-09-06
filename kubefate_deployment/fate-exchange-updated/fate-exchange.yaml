@@ -13,9 +13,9 @@ trafficServer:
   type: LoadBalancer
   route_table:
     sni:
-    - fqdn: 30000.fate.org
+    - fqdn: 30000.example.com
       tunnelRoute: 10.159.229.73:6651
-    - fqdn: 40000.fate.org
+    - fqdn: 40000.example.com
       tunnelRoute: 10.159.229.164:6651
 
 nginx:

@@ -19,6 +19,10 @@ modules:
 
 backend: spark
 
+host:
+  fateboard: 40000.fateboard.example.com
+  client: 40000.notebook.example.com
+
 nginx:
   type: LoadBalancer
   exchange:
